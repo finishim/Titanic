@@ -20,4 +20,14 @@ train$Child[train$Age >= 18] <- 0
 prop.table(table(train$Child, train$Survived),1)
 
 # Build the decision tree
-my_tree_two <- rpart(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare + Embarked, data = train, method = "class")
+my_tree <- rpart(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare + Embarked, data = train, method = "class")
+
+## Visualize the decision tree using plot() and text()
+plot(my_tree)
+text(my_tree)
+## Load in the packages to build a fancy plot
+library(rattle)
+library(rpart.plot)
+library(RColorBrewer)
+## Time to plot your fancy tree
+fancyRpartPlot(my_tree)
