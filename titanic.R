@@ -31,3 +31,16 @@ library(rpart.plot)
 library(RColorBrewer)
 ## Time to plot your fancy tree
 fancyRpartPlot(my_tree)
+
+# Another decision tree
+my_tree2 <- rpart(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare + Embarked,
+                     data = train, method = "class", control = rpart.control(minsplit = 50, cp = 0))
+## Visualize my_tree2
+fancyRpartPlot(my_tree2)
+
+# Make predictions on the test set
+my_prediction <- predict(my_tree, newdata = test, type = "class")
+my_prediction2 <- predict(my_tree2, newdata = test, type = "class")
+my_solution <- data.frame(PassengerId = test$PassengerId, Survived = my_prediction)
+## Finish the write.csv() call
+write.csv(my_solution, file = "my_solution.csv", row.names = FALSE)
